@@ -204,8 +204,24 @@
 }
 
 .worksheet .tasks .task {
+    position:  relative;
     font-size: 12px;
     border-bottom: #f4f4f4 1px solid;
+    height: 32px;
+}
+
+.worksheet .tasks .task .user {
+    position: absolute;
+    right: 25px;
+    color: #888681;
+    top: 7px;
+}
+
+.worksheet .tasks .task .glyphicon {
+    position: absolute;
+    right: 6px;
+    color: #888681;
+    top: 30%;
 }
 
 .worksheet .tasks .checked {

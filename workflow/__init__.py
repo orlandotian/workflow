@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
+from flask_socketio import SocketIO
 
 app = Flask(__name__)
 app.config.from_mapping(
@@ -17,6 +18,7 @@ app.config.from_mapping(
 db = SQLAlchemy(app)
 lgm = LoginManager(app)
 bootstrap = Bootstrap(app)
+socketio = SocketIO(app)
 
 
 @app.route('/hello')

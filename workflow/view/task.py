@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, request, jsonify
 from flask_login import login_required, current_user
 from workflow.model.model import Task
-from workflow import db
+from workflow import db, socketio
 from datetime import datetime, timedelta
+from flask_socketio import emit
 
 bp = Blueprint('task', __name__, url_prefix='/task')
 
@@ -42,6 +43,7 @@ def add_task():
         task.add_time = datetime.strptime(addTime, '%Y/%m/%d')
         db.session.add(task)
         db.session.commit()
+        handle_message([])
     return jsonify([])
 
 
@@ -63,3 +65,10 @@ def update_state():
             db.session.add(task)
         return jsonify(task.to_json())
     return jsonify(None)
+
+
+@socketio.on('event_update')
+def handle_message(json):
+    emit('response_update', json, broadcast=True, namespace='')
+
+
