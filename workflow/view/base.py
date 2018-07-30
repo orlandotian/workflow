@@ -1,5 +1,5 @@
 from flask import Blueprint, url_for, render_template, request, flash, redirect, jsonify
-from flask_login import logout_user, login_user, login_required
+from flask_login import logout_user, login_user, login_required, current_user
 from workflow import app, db
 from workflow import lgm
 from workflow.model.model import User
@@ -61,3 +61,21 @@ def login():
         return redirect(url)
 
     return render_template('login.html', form=form)
+
+
+@bp.route('/currentUser')
+@login_required
+def get_user():
+    return jsonify(current_user.to_json())
+
+
+@bp.route('/myMembers')
+@login_required
+def get_members():
+    group_id = current_user.group_id
+    groups = User.query.filter(User.group_id == group_id).filter(User.id != current_user.id).all()
+    results = [i.to_json() for i in groups]
+    me = current_user.to_json()
+    me['real_name'] = '我'
+    results.insert(0, me)
+    return jsonify(results)

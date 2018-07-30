@@ -8,21 +8,68 @@
 {% endblock %}
 
 {% block content %}
-    <script type="text/javascript" src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
-    <link rel="stylesheet" href="../static/css/flex-calendar.css">
-    <script type="text/javascript" src="../static/js/flex-calendar.js"></script>
-    <script type="text/javascript" src="../static/js/mycalendar.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script src="../static/js/index.js"></script>
+    <link rel="stylesheet" href="../static/css/index.css">
     {% raw %}
-    <div ng-app="app">
-        <div ng-controller="MainController">
-            <div class="wrapp">
-                <flex-calendar options="options" events="events"></flex-calendar>
+    <div ng-app="app" ng-controller="controller">
+        <div class="base">
+            <div class="calendar">
+                <div class="month">
+                    <div class="arrow" ng-click="nextMonth(-1)"></div>
+                    <div class="label">{{ monthStr(monthIndex) }} {{ year }}</div>
+                    <div class="arrow" ng-click="nextMonth(1)"></div>
+                </div>
+                <div class="weeks">
+                    <div class="week" ng-repeat="week in weekStr(3)">{{ week }}</div>
+                </div>
+                <div class="days" ng-repeat="week in weeks">
+                    <div class="day" ng-repeat="day in week track by $index"
+                         ng-class="{selected: isDefaultDate(day), today: isToday(day), out:!day}" ng-click="dayClick(day)">
+                        <div class="number">{{ day.day }}</div>
+                        <div class="events" ng-if="day.events">
+                            <div class="event" ng-repeat="event in day.events | filter:{state: 0} | limitTo:2">{{ event.name }}</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <br/>
+            <div class="dialog" ng-init="dialog.hideDialog=true" ng-hide="dialog.hideDialog" >
+                <div class="bg"></div>
+                <div class="worksheet">
+                    <div class="toolbar">
+                        <div class="glyphicon glyphicon-plus btn" ng-click="dialog.addHidden=!dialog.addHidden" ng-init="dialog.addHidden=true"></div>
+                        <div class="checkbox">{{ formateDate(defaultDate) }}</div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" ng-model="dialog.onlyToday" ng-init="dialog.onlyToday=true" ng-click="showDialog()">只看今天</label>
+                        </div>
+                        <div class="glyphicon glyphicon-remove btn" ng-click="dialog.hideDialog=true"></div>
+                    </div>
+                    <div class="status">
+                        <div>已完成{{ (dialog.tasks | filter:{state:1}).length }}项</div>
+                        <div class="sbtn" ng-init="showCompleted = false" ng-click="showCompleted = !showCompleted">{{ showCompleted ? '隐藏':'显示' }}</div>
+                    </div>
+                    <div class="tasks">
+                        <div class="task add-new" ng-hide="dialog.addHidden"><input type="text"  ng-model="dialog.newTask" placeholder="新增任务" autofocus="autofocus" ng-keydown="keydown($event)"></div>
+                        <div class="task" ng-hide="(t.state == 1 && !showCompleted)" ng-class="{checked:t.state == 1}" ng-repeat="t in dialog.tasks">
+                            <input type="checkbox" ng-disabled="t.user_id != currentUser.id" ng-checked="t.state == 1" ng-click="updateTask(t)">{{ t.name }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu" ng-style="barStyle">
+                <div class="bar" ng-init="menuVisible = false" ng-click="menuVisible = !menuVisible"><div class="narrow"></div></div>
+                <div class="title">Menu &nbsp;</div>
+                <div class="mcontainer">
+                    <div class="filters">
+                        <div class="item" ng-repeat="member in members">
+                            <input type="checkbox" ng-model="member.checked" ng-click="menuChecked()">{{ member.real_name }}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    {% endraw %}
     <style>
-
     </style>
+    {% endraw %}
 {% endblock %}

@@ -24,9 +24,10 @@ def hello_world():
     return 'Hello World!'
 
 
-from workflow.view import base
+from workflow.view import base, task
 
 app.register_blueprint(base.bp)
+app.register_blueprint(task.bp)
 
 from workflow.view import admin
 

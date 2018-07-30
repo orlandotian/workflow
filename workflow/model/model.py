@@ -22,11 +22,6 @@ class Group(db.Model):
         return self.name
 
 
-user_task = db.Table('user_task',
-                     db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
-                     db.Column('task_id', db.Integer, db.ForeignKey('task.id'), primary_key=True))
-
-
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
@@ -36,21 +31,40 @@ class User(db.Model, UserMixin):
     this_login = db.Column(db.DateTime, default=datetime.now())
     last_login = db.Column(db.DateTime, default=datetime.now())
     state = db.Column(db.Integer, default=0)
-    tasks = db.relationship('Task', secondary=user_task, backref='users')
 
     def __repr__(self):
         return self.real_name
 
+    def to_json(self):
+        return {
+            'id': self.id,
+            'real_name': self.real_name,
+            'mobile': self.mobile,
+        }
 
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', backref='tasks')
     name = db.Column(db.String(100))
-    priority = db.Column(db.Integer)
+    priority = db.Column(db.Integer, default=0)
     state = db.Column(db.Integer, default=0)
     add_time = db.Column(db.DateTime, default=datetime.now())
-    expected_time = db.Column(db.DateTime, default=datetime.now())
+    expected_time = db.Column(db.DateTime)
     update_time = db.Column(db.DateTime, default=datetime.now())
-    end_time = db.Column(db.DateTime, default=datetime.now())
+    end_time = db.Column(db.DateTime)
 
     def __repr__(self):
         return self.name[:10]
+
+    def to_json(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'user': self.user.real_name,
+            'user_id': self.user.id,
+            'priority': self.priority,
+            'state': self.state,
+            'add_time': self.add_time,
+            'time_str': self.add_time.strftime('%Y/%m/%d')
+        }
