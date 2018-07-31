@@ -68,7 +68,12 @@ def update_state():
 
 
 @socketio.on('event_update')
-def handle_message(json):
+def event_update(json):
     emit('response_update', json, broadcast=True, namespace='')
+
+
+@socketio.on('event_message')
+def event_message(json):
+    emit('response_message', json, broadcast=True, namespace='')
 
 

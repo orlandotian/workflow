@@ -5,18 +5,20 @@ function controller($scope, $http) {
 
     var MONTHS = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAI', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
     var WEEKDAYS = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
-    init(new Date());
-    initSocket();
+
     $http.get('/currentUser').then(function (result) {
         $scope.currentUser = result.data;
+        init(new Date());
+        initSocket();
     });
+
     $http.get('/myMembers').then(function (result) {
         $scope.members = result.data;
         for (var i = 0; i < $scope.members.length; i++) {
             $scope.members[i].checked = (i == 0);
         }
-
     });
+
 
     function init(date) {
         $scope.defaultDate = date;
@@ -59,12 +61,11 @@ function controller($scope, $http) {
     }
 
     function initSocket() {
-        var socket = io.connect('http://' + document.domain + ':' + location.port);
-        socket.emit('event_update', {'param': 'value'});
         socket.on('response_update', function (data) {
             alert(data);
             rebindEvent($scope.weeks)
         });
+        sendMessage($scope.currentUser.real_name + '登录系统');
     }
 
     function nextMonth(del) {
@@ -138,6 +139,7 @@ function controller($scope, $http) {
     }
 
     $scope.$watch('weeks', function (weeks) {
+        if(!weeks) return;
         rebindEvent(weeks);
     });
 

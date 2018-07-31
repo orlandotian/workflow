@@ -1,0 +1,48 @@
+body {
+    margin: 0px;
+}
+
+.barrage {
+    z-index: 1000;
+    position: relative;
+    width: 100%;
+    height: 1px;
+}
+
+@keyframes flyaway {
+    0% {
+        right: -10%;
+        opacity: 0.0
+    }
+    10% {
+        right: 20%;
+        opacity: 1.0
+    }
+    50% {
+        right: 50%;
+        opacity: 1.0
+    }
+    90% {
+        right: 80%;
+        opacity: 0.5
+    }
+    100% {
+        right: 100%;
+        opacity: 0.0
+    }
+}
+
+.barrage .message {
+    right: 110%;
+    background-color: transparent;
+    text-shadow: 0px 0px 3px #888888;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0px 10px 0px 10px;
+    color: white;
+    border: white 1px solid;
+    border-radius: 2px;
+    position: absolute;
+    animation: flyaway 10s linear;
+    box-shadow: 0px 0px 3px #888888;
+}

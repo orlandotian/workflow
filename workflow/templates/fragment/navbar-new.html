@@ -1,0 +1,120 @@
+<html>
+<head>
+
+</head>
+<body>
+<div class="navbar">
+    <div class="toggle">Workflow</div>
+    <div class="navbar-collapse">
+        <ul class="left-menu">
+            <li>
+                <a>工作台</a>
+            </li>
+            <li>
+                <a>任务管理</a>
+            </li>
+            <li>
+                <a>通知管理</a>
+            </li>
+        </ul>
+        <ul class="right-menu">
+            <li class="dropdown-toggle">
+                <a class="dropdown-toggle">啊啊啊</a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a>工作台</a>
+                    </li>
+                    <li>
+                        <a>任务管理</a>
+                    </li>
+                    <li>
+                        <a>通知管理</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<style>
+    .navbar {
+        font-weight: 400;
+        font-family: "Lora", Georgia, "Times New Roman", Times, serif;
+        width: auto;
+        height: 60px;
+        line-height: 65px;
+        background-color: #389edd;
+        border-bottom: #f3f3f3 1px solid;
+        border-top: #f3f3f3 1px solid;
+        display: flex;
+    }
+
+    .navbar .toggle {
+        padding: 0px 10px 0px 10px;
+        font-size: 22px;
+        color: white;
+        height: auto;
+        width: fit-content;
+        border-right: #f3f3f3 1px solid;
+        text-shadow: #4d4b4d 0px 0px 2px;
+    }
+
+    .navbar .navbar-collapse {
+        display: flex;
+    }
+
+    .navbar .left-menu {
+        display: flex;
+        margin: 0px;
+    }
+
+    .navbar .left-menu li {
+        display: flex;
+    }
+
+    .navbar .left-menu a {
+        font-size: 12px;
+        color: white;
+        margin-left: 10px;
+    }
+
+    .navbar .right-menu {
+        position: absolute;
+        right: 10px;
+        height: 65px;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .right-menu li.dropdown-toggle {
+        display: block;
+    }
+
+    .right-menu a.dropdown-toggle {
+        color: white;
+        font-size: 14px;
+    }
+
+    .right-menu .dropdown-menu {
+        border: #b8b6b8 1px solid;
+        background-color: white;
+        position: absolute;
+        top: 55px;
+        right: 0px;
+        width: 100px;
+        padding: 5px;
+        z-index: 100;
+    }
+
+    .navbar .dropdown-menu li {
+        display: inline-grid;
+        line-height: 30px;
+    }
+
+    .navbar .dropdown-menu a {
+        font-size: 12px;
+        color: #575757;
+        margin-left: 10px;
+    }
+</style>
+</body>
+</html>
