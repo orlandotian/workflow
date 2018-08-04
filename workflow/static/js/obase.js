@@ -2,11 +2,6 @@ var socket = io.connect('http://' + document.domain + ':' + location.port);
 enableSocketio();
 
 function enableSocketio() {
-
-    socket.on('response_update', function (data) {
-        alert(data);
-        rebindEvent($scope.weeks)
-    });
     socket.on('response_message', function (data) {
         var msg = new String(data.msg);
         if (!document.hasFocus()) {
