@@ -43,7 +43,7 @@ def add_task():
         task.add_time = datetime.strptime(addTime, '%Y/%m/%d')
         db.session.add(task)
         db.session.commit()
-        handle_message([])
+        event_message({'msg':'%s添加了新任务<%s>'%(current_user.real_name, task.name)})
     return jsonify([])
 
 

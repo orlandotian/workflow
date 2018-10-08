@@ -6,6 +6,7 @@ from workflow.model.model import User
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField
 from wtforms.validators import DataRequired, Length, EqualTo, Email
+from workflow.util import util
 
 bp = Blueprint('base', __name__)
 
@@ -49,7 +50,7 @@ def login():
         if not user:
             flash('用户不存在')
             return render_template('login.html', form=form)
-        if user.pwd != form.pwd.data:
+        if user.pwd != util.md5(form.pwd.data):
             flash('密码不正确')
             return render_template('login.html', form=form)
         if user.state == 1:

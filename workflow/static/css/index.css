@@ -212,16 +212,16 @@
 
 .worksheet .tasks .task .user {
     position: absolute;
-    right: 25px;
+    right: 28px;
     color: #888681;
     top: 7px;
 }
 
 .worksheet .tasks .task .glyphicon {
     position: absolute;
-    right: 6px;
+    right: 5px;
     color: #888681;
-    top: 30%;
+    top: 4px;
 }
 
 .worksheet .tasks .checked {
@@ -289,4 +289,27 @@
 
 .filters input[type=checkbox] {
     margin-right: 10px;
+}
+
+.glyphicon-plus {
+    background: url('/static/img/icon.png') no-repeat 0px 0px;
+    width: 20px;
+    height: 20px;
+    background-size: 100px 100px;
+    margin: 10px;
+}
+
+.glyphicon-remove {
+    background: url('/static/img/icon.png') no-repeat -20px 0px;
+    width: 20px;
+    height: 20px;
+    background-size: 100px 100px;
+    margin: 10px;
+}
+
+.glyphicon-info-sign {
+    background: url('/static/img/icon.png') no-repeat -40px 0px;
+    width: 20px;
+    height: 20px;
+    background-size: 100px 100px;
 }

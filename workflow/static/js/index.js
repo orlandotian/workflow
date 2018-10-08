@@ -6,9 +6,10 @@ function controller($scope, $http) {
     var MONTHS = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAI', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
     var WEEKDAYS = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
 
+    init(new Date());
+
     $http.get('/currentUser').then(function (result) {
         $scope.currentUser = result.data;
-        init(new Date());
         initSocket();
     });
 

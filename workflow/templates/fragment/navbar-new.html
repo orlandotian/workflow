@@ -5,7 +5,7 @@
 <body>
 <div class="navbar">
     <link rel="stylesheet" href="/static/css/navbar.css">
-    <div class="toggle">Workflow</div>
+    <div class="toggle" onclick="reload_page()">Workflow</div>
     <div class="navbar-collapse">
         <ul class="left-menu">
             <li>
@@ -54,7 +54,9 @@
         var display = $('#dropdown-menu')[0].style.display;
         $('#dropdown-menu')[0].style.display = display == "" ? "none" : "";
     }
-
+    function reload_page() {
+        window.location.reload();
+    }
 </script>
 </body>
 </html>
